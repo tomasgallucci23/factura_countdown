@@ -44,10 +44,10 @@ export const Routes = [
     controller: BirthdayController,
     action: 'getNextBirthday',
   },
-  {
-    method: 'get',
-    route: '/getProximaFech',
-    controller: BirthdayController,
-    action: 'getProximoCumpleanios',
-  },
+  // {
+  //   method: 'get',
+  //   route: '/getProximaFech',
+  //   controller: BirthdayController,
+  //   action: 'getProximoCumpleanios',
+  // },
 ];

@@ -53,7 +53,7 @@ export class BirthdayController {
     }
     next();
   }
-  public async getProximoCumpleanios(req: express.Request, res: express.Response) {
+  public async getNextBirthday(req: express.Request, res: express.Response) {
     let clients = await this.userRepository
       .createQueryBuilder('user')
       .where(
@@ -64,57 +64,6 @@ export class BirthdayController {
     BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 7 DAY)`
       )
       .getMany();
-    res.json(clients);
-  }
-  public async getNextBirthday(req: express.Request, res: express.Response) {
-    let date = new Date();
-    let dateMonthMax: number = date.getMonth() + 1;
-    let dateDayhMax: number = date.getDate() + 7;
-    let dateMonthMin: number = date.getMonth();
-    let dateDayMin: number;
-    if (date.getDate() < 7) {
-      dateDayMin = 30 - 7 + date.getDate();
-    } else {
-      dateDayMin = date.getDate();
-    }
-    let clientBirthdayThisMonth = [];
-    const clients = await this.userRepository
-      .createQueryBuilder('user')
-      //   .where('date_birthday <' + dateNow)
-      .orderBy('user.date_birthday', 'DESC')
-      .getMany();
-    clients.forEach((e) => {
-      console.log(e.date_birthday);
-      let dateBirthday = new Date(e.date_birthday);
-      let dateMonth: number = dateBirthday.getMonth() + 1;
-      let dateDay: number = dateBirthday.getDay();
-      console.log(dateMonthMin, dateMonthMax, dateDayMin, dateDayhMax, dateMonth, dateDay);
-      if (dateMonth <= dateMonthMax && dateMonth >= dateMonthMin) {
-        if (dateDay > dateDayMin || dateDay < dateDayhMax) {
-          clientBirthdayThisMonth.push(e);
-        } else {
-        }
-      } else {
-        console.log('no 7');
-      }
-    });
-    res.json(clientBirthdayThisMonth);
-    clientBirthdayThisMonth = clientBirthdayThisMonth.sort((a: any, b: any) => {
-      let day = new Date(a.date_birthday).getDate();
-      let day1 = new Date(b.date_birthday).getDate();
-      let dayActual = new Date().getDate();
-      if (day > dayActual || day1 > dayActual) {
-        return -1;
-      }
-      if (day1 < dayActual || day < dayActual) {
-        return 1;
-      }
-      return 0;
-    });
-    if (clientBirthdayThisMonth.length === 0) {
-      return res.json({ items: [], message: 'Users does not meet years' });
-    } else {
-      res.status(200).json({ items: clientBirthdayThisMonth });
-    }
+    res.status(200).json({ items: clients });
   }
 }
