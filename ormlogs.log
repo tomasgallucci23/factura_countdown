@@ -1366,3 +1366,18 @@
                  + IF(DAYOFYEAR(CURDATE()) > DAYOFYEAR(date_birthday),1,0)
         YEAR)  
     BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 365 DAY) ORDER BY date_birthday ASC
+[2020-08-07T17:27:13.982Z][QUERY]: SELECT `User`.`id` AS `User_id`, `User`.`name` AS `User_name`, `User`.`lastname` AS `User_lastname`, `User`.`email` AS `User_email`, `User`.`phone` AS `User_phone`, `User`.`date_birthday` AS `User_date_birthday`, `User`.`description` AS `User_description` FROM `user` `User`
+[2020-08-07T17:27:20.000Z][QUERY]: SELECT `User`.`id` AS `User_id`, `User`.`name` AS `User_name`, `User`.`lastname` AS `User_lastname`, `User`.`email` AS `User_email`, `User`.`phone` AS `User_phone`, `User`.`date_birthday` AS `User_date_birthday`, `User`.`description` AS `User_description` FROM `user` `User` WHERE `User`.`id` IN (?) -- PARAMETERS: ["22"]
+[2020-08-07T17:27:20.018Z][QUERY]: DELETE FROM `user` WHERE `id` IN (?) -- PARAMETERS: ["22"]
+[2020-08-07T17:27:23.652Z][QUERY]: SELECT `User`.`id` AS `User_id`, `User`.`name` AS `User_name`, `User`.`lastname` AS `User_lastname`, `User`.`email` AS `User_email`, `User`.`phone` AS `User_phone`, `User`.`date_birthday` AS `User_date_birthday`, `User`.`description` AS `User_description` FROM `user` `User` WHERE `User`.`id` IN (?) -- PARAMETERS: ["23"]
+[2020-08-07T17:27:23.664Z][QUERY]: DELETE FROM `user` WHERE `id` IN (?) -- PARAMETERS: ["23"]
+[2020-08-07T17:27:27.129Z][QUERY]: SELECT `User`.`id` AS `User_id`, `User`.`name` AS `User_name`, `User`.`lastname` AS `User_lastname`, `User`.`email` AS `User_email`, `User`.`phone` AS `User_phone`, `User`.`date_birthday` AS `User_date_birthday`, `User`.`description` AS `User_description` FROM `user` `User` WHERE `User`.`id` IN (?) -- PARAMETERS: ["24"]
+[2020-08-07T17:40:26.840Z][QUERY]: SELECT `User`.`id` AS `User_id`, `User`.`name` AS `User_name`, `User`.`lastname` AS `User_lastname`, `User`.`email` AS `User_email`, `User`.`phone` AS `User_phone`, `User`.`date_birthday` AS `User_date_birthday`, `User`.`description` AS `User_description` FROM `user` `User` WHERE `User`.`id` IN (?) -- PARAMETERS: ["24"]
+[2020-08-07T17:45:14.727Z][QUERY]: SELECT * FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA` = 'test' AND `TABLE_NAME` = 'migrations'
+[2020-08-07T17:45:14.736Z][QUERY]: SELECT * FROM `test`.`migrations` `migrations` ORDER BY `id` DESC
+[2020-08-07T17:45:54.440Z][QUERY]: SELECT * FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA` = 'test' AND `TABLE_NAME` = 'migrations'
+[2020-08-07T17:45:54.452Z][QUERY]: SELECT * FROM `test`.`migrations` `migrations` ORDER BY `id` DESC
+[2020-08-07T17:48:41.552Z][QUERY]: SELECT * FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA` = 'test' AND `TABLE_NAME` = 'migrations'
+[2020-08-07T17:48:41.563Z][QUERY]: SELECT * FROM `test`.`migrations` `migrations` ORDER BY `id` DESC
+[2020-08-07T17:48:49.394Z][QUERY]: SELECT * FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA` = 'test' AND `TABLE_NAME` = 'migrations'
+[2020-08-07T17:48:49.402Z][QUERY]: SELECT * FROM `test`.`migrations` `migrations` ORDER BY `id` DESC

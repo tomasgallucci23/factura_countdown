@@ -32,20 +32,20 @@ export class UserController {
         break;
       case 'DELETE':
         if (!params.id) {
-          return res.status(400).send({ message: 'Id is required' });
+          return res.status(400).json({ message: 'Id is required' });
         }
         break;
       case 'POST':
         if (Object.keys(req.body).length === 0) {
-          return res.status(400).send({ message: "Request body can't be empty" });
+          return res.status(400).json({ message: "Request body can't be empty" });
         }
         break;
       case 'PUT':
         if (!params.id) {
-          return res.status(400).send({ message: 'Id is required' });
+          return res.status(400).json({ message: 'Id is required' });
         }
         if (Object.keys(req.body).length === 0) {
-          return res.status(400).send({ message: "Request body can't be empty" });
+          return res.status(400).json({ message: "Request body can't be empty" });
         }
         break;
     }
@@ -62,35 +62,42 @@ export class UserController {
     user.phone = userData.phone;
     this.userRepository.save(user);
 
-    return res.status(201).send({ message: 'User created', user });
+    return res.status(201).json({ message: 'User created', user });
   }
 
   public async getAllUsers(req: express.Request, res: express.Response) {
     const clients = await this.userRepository.find();
-    return res.status(200).send(clients);
+    if (clients != undefined) {
+      return res.status(200).json(clients);
+    } else {
+      return res.status(400).json({ message: 'Users not found or not created' });
+    }
   }
 
   public async getUser(req: express.Request, res: express.Response) {
-    const client = await this.userRepository.findOne(req.params.id);
-    return res.status(200).send(client);
+    const user = await this.userRepository.findOne(req.params.id);
+    if (user !== undefined) {
+      return res.status(200).json(user);
+    }
+    return res.status(400).json({ message: 'User not found' });
   }
 
   public async updateUser(req: express.Request, res: express.Response) {
     const user = await this.userRepository.findOne(req.params.id);
     if (user !== undefined) {
       await this.userRepository.update(req.params.id, req.body);
-      return res.status(200).send({ message: 'User updated correctly' });
+      return res.status(200).json({ message: 'User updated correctly' });
     }
 
-    return res.status(404).send({ message: 'User not found' });
+    return res.status(404).json({ message: 'User not found' });
   }
 
   public async deleteUser(req: express.Request, res: express.Response) {
     const user = await this.userRepository.findOne(req.params.id);
     if (user !== undefined) {
       this.userRepository.delete(req.params.id);
-      return res.status(200).send({ message: 'User deleted successfully' });
+      return res.status(200).json({ message: 'User deleted successfully' });
     }
-    return res.status(404).send({ message: 'User not found' });
+    return res.status(404).json({ message: 'User not found' });
   }
 }
