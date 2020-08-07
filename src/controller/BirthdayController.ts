@@ -61,9 +61,10 @@ export class BirthdayController {
         INTERVAL YEAR(CURDATE())-YEAR(date_birthday)
                  + IF(DAYOFYEAR(CURDATE()) > DAYOFYEAR(date_birthday),1,0)
         YEAR)  
-    BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 7 DAY)`
+    BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 90 DAY)`
       )
-      .getMany();
+      .orderBy('date_birthday', 'ASC')
+      .getOne();
     res.status(200).json({ items: clients });
   }
 }

@@ -8,19 +8,28 @@
     "typescript": "3.3.3333"
   },
   "dependencies": {
+    "@types/node": "^8.0.29",
     "body-parser": "^1.18.1",
     "class-validator": "^0.12.2",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.15.4",
     "moment": "^2.27.0",
     "mysql": "^2.14.1",
     "nodemon": "^2.0.4",
     "reflect-metadata": "^0.1.10",
+    "ts-node": "3.3.0",
     "twilio": "^3.48.1",
     "typeorm": "0.2.25"
   },
   "scripts": {
     "start": "ts-node src/index.ts",
-    "dev": "nodemon src/index.ts"
+    "dev": "nodemon src/index.ts",
+    "tsc": "tsc",
+    "build": "ts-node build",
+    "migrations:create": "ts-node ./node_modules/typeorm/cli.js migration:create",
+    "migrations:generate": "ts-node ./node_modules/typeorm/cli.js migration:generate",
+    "migrations:run": "ts-node ./node_modules/typeorm/cli.js migration:run",
+    "migrations:revert": "ts-node ./node_modules/typeorm/cli.js migration:revert"
   }
 }
