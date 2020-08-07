@@ -26,10 +26,6 @@
     "start": "ts-node src/index.ts",
     "dev": "nodemon src/index.ts",
     "tsc": "tsc",
-    "build": "ts-node build",
-    "migrations:create": "ts-node ./node_modules/typeorm/cli.js migration:create",
-    "migrations:generate": "ts-node ./node_modules/typeorm/cli.js migration:generate",
-    "migrations:run": "ts-node ./node_modules/typeorm/cli.js migration:run",
-    "migrations:revert": "ts-node ./node_modules/typeorm/cli.js migration:revert"
+    "build": "ts-node build"
   }
 }

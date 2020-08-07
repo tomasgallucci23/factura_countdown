@@ -59,12 +59,16 @@ export class BirthdayController {
       .where(
         `DATE_ADD(date_birthday, 
         INTERVAL YEAR(CURDATE())-YEAR(date_birthday)
-                 + IF(DAYOFYEAR(CURDATE()) > DAYOFYEAR(date_birthday),1,0)
+                 + IF(DAYOFYEAR(CURDATE()) > DAYOFYEAR(date_birthday) AND DAYOFYEAR(CURDATE()) < DAYOFYEAR(date_birthday),1,0)
         YEAR)  
     BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 365 DAY)`
       )
       .orderBy('date_birthday', 'ASC')
       .getOne();
-    res.status(200).json({ items: clients });
+    if (clients != undefined) {
+      res.status(200).json({ items: clients });
+    } else {
+      res.status(400).json({ message: 'Users not created yet' });
+    }
   }
 }
