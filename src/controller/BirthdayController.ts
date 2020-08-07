@@ -61,7 +61,7 @@ export class BirthdayController {
         INTERVAL YEAR(CURDATE())-YEAR(date_birthday)
                  + IF(DAYOFYEAR(CURDATE()) > DAYOFYEAR(date_birthday),1,0)
         YEAR)  
-    BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 90 DAY)`
+    BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 365 DAY)`
       )
       .orderBy('date_birthday', 'ASC')
       .getOne();

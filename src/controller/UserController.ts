@@ -87,9 +87,8 @@ export class UserController {
 
   public async deleteUser(req: express.Request, res: express.Response) {
     const user = await this.userRepository.findOne(req.params.id);
-    console.log(user);
     if (user !== undefined) {
-      // this.userRepository.delete(req.params.id);
+      this.userRepository.delete(req.params.id);
       return res.status(200).send({ message: 'User deleted successfully' });
     }
     return res.status(404).send({ message: 'User not found' });
