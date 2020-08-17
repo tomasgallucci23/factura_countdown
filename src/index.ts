@@ -11,6 +11,7 @@ createConnection()
   .then(async (connection) => {
     // create express app
     const app = express();
+    app.set('port', process.env.PORT || 3000);
     app.use(bodyParser.json());
     app.use(cors());
     // register express routes from defined application routes
@@ -33,6 +34,6 @@ createConnection()
     // start express server
     app.listen(3000);
 
-    console.log('[Server]: online on port 3000');
+    console.log('[Server]: online on port', app.get('port'));
   })
   .catch((error) => console.log(error));
