@@ -145,15 +145,15 @@ export class UserController {
       user.phone = userData.phone;
       this.userRepository.save(user);
 
-      // return res.status(201).json({ message: 'User created', user });
+      return res.status(201).json({ message: 'User created', user });
     }
   }
 
   public async getAllUsers(req: Request, res: Response) {
     const clients = await this.userRepository.find();
-    if (clients != undefined) {
+    if (clients != undefined || clients.length > 0) {
       return res.status(200).json(clients);
-    } else {
+    } else if (clients.length === 0) {
       return res.status(400).json({ message: 'Users not found or not created' });
     }
   }
