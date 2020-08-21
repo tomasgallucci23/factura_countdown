@@ -134,7 +134,7 @@ var UserController = /** @class */ (function () {
                         return [4 /*yield*/, this.userRepository.findOneOrFail({ email: userData.email })];
                     case 2:
                         uniqueMail = _a.sent();
-                        if (!util_1.isUndefined(uniqueMail)) {
+                        if (!util_1.isNullOrUndefined(uniqueMail)) {
                             EmailError.push({
                                 message: 'User found with this email.',
                             });

@@ -42,14 +42,19 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var routes_1 = require("./routes");
 var cors = require('cors');
+var path = require('path');
 require('dotenv').config();
 typeorm_1.createConnection()
     .then(function (connection) { return __awaiter(_this, void 0, void 0, function () {
     var app;
     return __generator(this, function (_a) {
         app = express();
+        app.set('port', process.env.PORT || 80);
         app.use(bodyParser.json());
         app.use(cors());
+        app.get('/', function (req, res) {
+            res.sendFile(path.join(__dirname, '/public/index.html'));
+        });
         // register express routes from defined application routes
         routes_1.Routes.forEach(function (route) {
             app[route.method](route.route, function (req, res, next) {
@@ -67,8 +72,9 @@ typeorm_1.createConnection()
         // setup express app here
         // ...
         // start express server
-        app.listen(3000);
-        console.log('[Server]: online on port 3000');
+        app.listen(app.get('port'), function () {
+            console.log('[Server]: online on port', app.get('port'));
+        });
         return [2 /*return*/];
     });
 }); })

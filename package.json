@@ -27,6 +27,6 @@
     "dev": "nodemon src/index.ts --unhandled-rejections=strict",
     "tsc": "tsc",
     "build": "ts-node build",
-    "deploy": "ts-node build && ts-node build/index.js"
+    "deploy": "npm run tsc && ts-node build/index.js"
   }
 }

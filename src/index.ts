@@ -12,7 +12,7 @@ createConnection()
   .then(async (connection) => {
     // create express app
     const app = express();
-    app.set('port', process.env.PORT || 3000);
+    app.set('port', process.env.PORT || 80);
     app.use(bodyParser.json());
     app.use(cors());
     app.get('/', function (req: Request, res: Response) {
@@ -36,8 +36,8 @@ createConnection()
     // ...
 
     // start express server
-    app.listen(3000);
-
-    console.log('[Server]: online on port', app.get('port'));
+    app.listen(app.get('port'), () => {
+      console.log('[Server]: online on port', app.get('port'));
+    });
   })
   .catch((error) => console.log(error));
