@@ -5,6 +5,7 @@ import * as bodyParser from 'body-parser';
 import { Request, Response } from 'express';
 import { Routes } from './routes';
 const cors = require('cors');
+const path = require('path');
 
 require('dotenv').config();
 createConnection()
@@ -14,6 +15,9 @@ createConnection()
     app.set('port', process.env.PORT || 3000);
     app.use(bodyParser.json());
     app.use(cors());
+    app.get('/', function (req: Request, res: Response) {
+      res.sendFile(path.join(__dirname, '/public/index.html'));
+    });
     // register express routes from defined application routes
     Routes.forEach((route) => {
       (app as any)[route.method](route.route, (req: Request, res: Response, next: Function) => {

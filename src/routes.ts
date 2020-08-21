@@ -14,6 +14,7 @@ export const Routes = [
     controller: UserController,
     action: 'getUser',
   },
+
   {
     method: 'post',
     route: '/usuarios/create',
