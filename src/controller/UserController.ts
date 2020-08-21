@@ -4,6 +4,7 @@ import { NextFunction, Request, Response } from 'express';
 import { User } from '../entity/User';
 import { isDate, isNullOrUndefined } from 'util';
 import Validator from 'validator';
+import stringify from 'json-stringify-safe';
 export class UserController {
   public path = '/usuarios';
   public router: express.Router = express.Router();
@@ -58,101 +59,102 @@ export class UserController {
     let error = {};
     let EmailError = [];
 
-    if (!Validator.matches(userData.name, '/^[az-AZ')) {
-      error['name'] = {
-        message: 'Name has to be a string.',
-        value: userData.name,
-      };
-    } else if (Validator.isEmpty(userData.name)) {
-      error['name'] = {
-        message: 'Name is required.',
-      };
-    }
+    // if (!Validator.matches(userData.name, '/^[az-AZ')) {
+    //   error['name'] = {
+    //     message: 'Name has to be a string.',
+    //     value: userData.name,
+    //   };
+    // } else if (Validator.isEmpty(userData.name)) {
+    //   error['name'] = {
+    //     message: 'Name is required.',
+    //   };
+    // }
 
-    if (!Validator.matches(userData.lastname, '/^[az-AZ')) {
-      error['lastname'] = {
-        message: 'Lastname has to be a string.',
-        value: userData.lastname,
-      };
-    } else if (Validator.isEmpty(userData.lastname)) {
-      error['lastname'] = {
-        message: 'Lastname is required.',
-      };
-    }
-    if (Validator.isEmpty(userData.email)) {
-      error['email'] = {
-        message: 'Email is required.',
-      };
-    } else {
-      if (!Validator.matches(userData.email, '/^[az-AZ')) {
-        EmailError.push({
-          message: 'Email has to be a string.',
-        });
-      } else if (!Validator.isEmail(userData.email)) {
-        EmailError.push({
-          message: 'Email has to be a format email.',
-        });
-      }
-      let uniqueMail = await this.userRepository.findOneOrFail({ email: userData.email });
-      if (!isNullOrUndefined(uniqueMail)) {
-        EmailError.push({
-          message: 'User found with this email.',
-        });
-      }
-      error['email'] = {
-        message: 'Email errors',
-        errors: EmailError,
-        value: userData.email,
-      };
-    }
-    if (!isDate(userData.date_birthday)) {
-      error['date_birthday'] = {
-        message: 'Date birthday has to be a valid date.',
-        value: userData.date_birthday,
-      };
-    } else if (Validator.isEmpty(userData.date_birthday)) {
-      error['date_birthday'] = {
-        message: 'Date birthday is required.',
-      };
-    }
-    if (!Validator.isNumeric(userData.phone)) {
-      error['phone'] = {
-        message: 'Phone has to be a numeric.',
-      };
-    } else if (Validator.isEmpty(userData.phone)) {
-      error['phone'] = {
-        message: 'Phone is required.',
-      };
-    }
-    if (Validator.isEmpty(userData.description)) {
-      userData.description = '';
-    }
+    // if (!Validator.matches(userData.lastname, '/^[az-AZ')) {
+    //   error['lastname'] = {
+    //     message: 'Lastname has to be a string.',
+    //     value: userData.lastname,
+    //   };
+    // } else if (Validator.isEmpty(userData.lastname)) {
+    //   error['lastname'] = {
+    //     message: 'Lastname is required.',
+    //   };
+    // }
+    // if (Validator.isEmpty(userData.email)) {
+    //   error['email'] = {
+    //     message: 'Email is required.',
+    //   };
+    // } else {
+    //   if (!Validator.matches(userData.email, '/^[az-AZ')) {
+    //     EmailError.push({
+    //       message: 'Email has to be a string.',
+    //     });
+    //   } else if (!Validator.isEmail(userData.email)) {
+    //     EmailError.push({
+    //       message: 'Email has to be a format email.',
+    //     });
+    //   }
+    //   let uniqueMail = await this.userRepository.findOneOrFail({ email: userData.email });
+    //   if (!isNullOrUndefined(uniqueMail)) {
+    //     EmailError.push({
+    //       message: 'User found with this email.',
+    //     });
+    //   }
+    //   error['email'] = {
+    //     message: 'Email errors',
+    //     errors: EmailError,
+    //     value: userData.email,
+    //   };
+    // }
+    // if (!isDate(userData.date_birthday)) {
+    //   error['date_birthday'] = {
+    //     message: 'Date birthday has to be a valid date.',
+    //     value: userData.date_birthday,
+    //   };
+    // } else if (Validator.isEmpty(userData.date_birthday)) {
+    //   error['date_birthday'] = {
+    //     message: 'Date birthday is required.',
+    //   };
+    // }
+    // if (!Validator.isNumeric(userData.phone)) {
+    //   error['phone'] = {
+    //     message: 'Phone has to be a numeric.',
+    //   };
+    // } else if (Validator.isEmpty(userData.phone)) {
+    //   error['phone'] = {
+    //     message: 'Phone is required.',
+    //   };
+    // }
+    // if (Validator.isEmpty(userData.description)) {
+    //   userData.description = '';
+    // }
 
-    if (error) {
-      return res
-        .json({
-          errors: error,
-          message: 'An error occurred when validating',
-        })
-        .send(console.log(!Validator.isAlpha(userData.name)))
-        .status(400);
-    } else {
-      user.name = userData.name;
-      user.lastname = userData.lastname;
-      user.email = userData.email;
-      user.date_birthday = userData.date_birthday;
-      user.description = userData.description;
-      user.phone = userData.phone;
-      this.userRepository.save(user);
+    // if (error) {
+    //   return res
+    //     .json({
+    //       errors: error,
+    //       message: 'An error occurred when validating',
+    //     })
+    //     .send(console.log(!Validator.isAlpha(userData.name)))
+    //     .status(400);
+    // } else {
+    user.name = userData.name;
+    user.lastname = userData.lastname;
+    user.email = userData.email;
+    user.date_birthday = userData.date_birthday;
+    user.description = userData.description;
+    user.phone = userData.phone;
+    this.userRepository.save(user);
 
-      return res.status(201).json({ message: 'User created', user });
-    }
+    return res.status(201).json({ message: 'User created', user });
+    // }
   }
 
   public async getAllUsers(req: Request, res: Response) {
     const clients = await this.userRepository.find();
-    if (clients != undefined || clients.length > 0) {
-      return res.status(200).json(clients);
+    console.log(clients);
+    if (clients.length > 0) {
+      return res.status(200).json(JSON.stringify(clients));
     } else if (clients.length === 0) {
       return res.status(400).json({ message: 'Users not found or not created' });
     }

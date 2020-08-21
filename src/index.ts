@@ -14,7 +14,11 @@ createConnection()
     const app = express();
     app.set('port', process.env.PORT || 3000);
     app.use(bodyParser.json());
-    app.use(cors());
+    app.use(
+      cors({
+        origin: 'http://facturas.movizen.ga',
+      })
+    );
     app.get('/', function (req: Request, res: Response) {
       res.sendFile(path.join(__dirname, '/public/index.html'));
     });

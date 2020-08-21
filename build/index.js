@@ -49,9 +49,11 @@ typeorm_1.createConnection()
     var app;
     return __generator(this, function (_a) {
         app = express();
-        app.set('port', process.env.PORT || 80);
+        app.set('port', process.env.PORT || 3000);
         app.use(bodyParser.json());
-        app.use(cors());
+        app.use(cors({
+            origin: 'http://facturas.movizen.ga',
+        }));
         app.get('/', function (req, res) {
             res.sendFile(path.join(__dirname, '/public/index.html'));
         });
@@ -75,6 +77,7 @@ typeorm_1.createConnection()
         app.listen(app.get('port'), function () {
             console.log('[Server]: online on port', app.get('port'));
         });
+        console.log(process.env.PORT);
         return [2 /*return*/];
     });
 }); })
