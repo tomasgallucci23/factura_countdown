@@ -28,5 +28,8 @@
     "tsc": "tsc",
     "build": "ts-node build",
     "deploy": "npm run tsc && ts-node build/index.js"
+  },
+  "engines": {
+    "node": "12.x"
   }
 }
