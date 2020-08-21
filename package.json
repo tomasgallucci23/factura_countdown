@@ -23,13 +23,12 @@
     "validator": "^13.1.1"
   },
   "scripts": {
-    "start": "ts-node src/index.ts",
-    "dev": "nodemon src/index.ts --unhandled-rejections=strict",
-    "tsc": "tsc",
-    "build": "ts-node build",
-    "deploy": "npm run tsc && ts-node build/index.js"
+    "start": "node build/index.js",
+    "build": "tsc",
+    "postinstall": "npm run build"
   },
   "engines": {
-    "node": "12.x"
+    "node": "12.x",
+    "npm": "6.x"
   }
 }
