@@ -12,7 +12,7 @@ createConnection()
   .then(async (connection) => {
     // create express app
     const app = express();
-    app.set('port', process.env.PORT || 8080);
+    app.set('port', process.env.PORT || 3000);
     app.use(bodyParser.json());
     app.use(cors());
     app.get('/', function (req: Request, res: Response) {
