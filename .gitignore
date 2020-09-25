@@ -1,3 +1,5 @@
 .idea/
 .vscode/
 node_modules/
+ormconfig.json
+ormlogs.log

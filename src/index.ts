@@ -11,14 +11,13 @@ require('dotenv').config();
 createConnection()
   .then(async (connection) => {
     // create express app
+    if (connection.isConnected) {
+      console.log('[DB]: in PORT');
+    }
     const app = express();
     app.set('port', process.env.PORT || 3000);
     app.use(bodyParser.json());
-    app.use(
-      cors({
-        origin: 'http://facturas.movizen.ga',
-      })
-    );
+    app.use(cors());
     app.get('/', function (req: Request, res: Response) {
       res.sendFile(path.join(__dirname, '/public/index.html'));
     });

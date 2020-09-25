@@ -4,7 +4,7 @@ import { NextFunction, Request, Response } from 'express';
 import { User } from '../entity/User';
 import { isDate, isNullOrUndefined } from 'util';
 import Validator from 'validator';
-import stringify from 'json-stringify-safe';
+import { stringify } from 'json-stringify-safe';
 export class UserController {
   public path = '/usuarios';
   public router: express.Router = express.Router();
@@ -154,7 +154,7 @@ export class UserController {
     const clients = await this.userRepository.find();
     console.log(clients);
     if (clients.length > 0) {
-      return res.status(200).json(JSON.stringify(clients));
+      return res.status(200).json(clients);
     } else if (clients.length === 0) {
       return res.status(400).json({ message: 'Users not found or not created' });
     }

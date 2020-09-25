@@ -3,7 +3,7 @@ import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 export class BaseTable1596827048564 implements MigrationInterface {
   tableName: string;
 
-  constructor(inputTableName = 'users') {
+  constructor(inputTableName = 'user') {
     this.tableName = inputTableName;
   }
 

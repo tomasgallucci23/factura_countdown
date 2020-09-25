@@ -47,19 +47,30 @@ export class BirthdayController {
     next();
   }
   public async getNextBirthday(req: express.Request, res: express.Response) {
+    let queryDate = this.userRepository
+      .createQueryBuilder('user')
+      .select('date_birthday')
+      .where('DAYOFYEAR(`date_birthday`) >= DAYOFYEAR(NOW())')
+      .orderBy('DAYOFYEAR(`date_birthday`)', 'ASC')
+      .limit(1)
+      .getSql();
     let clients = await this.userRepository
       .createQueryBuilder('user')
-      .where('DAYOFYEAR(`date_birthday`) > DAYOFYEAR(NOW())')
-      .orderBy('DAYOFYEAR(`date_birthday`)', 'ASC')
-      .getOne();
-    if (clients == undefined) {
+      .where('`date_birthday` = (' + queryDate + ')')
+      .getMany();
+    if (clients.length === 0) {
+      queryDate = this.userRepository
+        .createQueryBuilder('user')
+        .select('date_birthday')
+        .orderBy('DAYOFYEAR(`date_birthday`)', 'ASC')
+        .limit(1)
+        .getSql();
       clients = await this.userRepository
         .createQueryBuilder('user')
-        .orderBy('DAYOFYEAR(`date_birthday`)', 'ASC')
-        .getOne();
+        .where('`date_birthday` = (' + queryDate + ')')
+        .getMany();
     }
-
-    if (clients != undefined) {
+    if (clients.length > 0) {
       res.status(200).json({ items: clients });
     } else {
       res.status(400).json({ message: 'Users not created yet' });
