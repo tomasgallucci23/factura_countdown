@@ -14,25 +14,10 @@ createConnection()
     if (connection.isConnected) {
       console.log('[DB]: in PORT');
     }
-    var allowedOrigins = ['http://localhost:3000', 'http://facturas.movizen.ga'];
-
     const app = express();
     app.set('port', process.env.PORT || 3000);
     app.use(bodyParser.json());
-    app.use(
-      cors({
-        origin: function (origin, callback) {
-          // allow requests with no origin
-          // (like mobile apps or curl requests)
-          if (!origin) return callback(null, true);
-          if (allowedOrigins.indexOf(origin) === -1) {
-            var msg = 'The CORS policy for this site does not ' + 'allow access from the specified Origin.';
-            return callback(new Error(msg), false);
-          }
-          return callback(null, true);
-        },
-      })
-    );
+    app.use(cors());
     app.get('/', function (req: Request, res: Response) {
       res.sendFile(path.join(__dirname, '/public/index.html'));
     });
